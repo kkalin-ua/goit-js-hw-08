@@ -3,8 +3,9 @@ import { galleryItems } from './gallery-items';
 // console.log(galleryItems)
 
 
-// import SimpleLightbox from 'simplelightbox';
-// import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from 'simplelightbox';
+
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 console.log(simplelightbox)
 
@@ -23,9 +24,9 @@ console.log(imgEl)
   newGallery.insertAdjacentHTML("beforeend", imgEl);
 
 
-  // new SimpleLightbox('.gallery a', {
-  //   captionsData: 'alt',
-  //   captionDelay: 250,
-  //   scrollZoom: false,
-  //   doubleTapZoom: 1,
-  // });
+  new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+    scrollZoom: false,
+    doubleTapZoom: 1,
+  });
