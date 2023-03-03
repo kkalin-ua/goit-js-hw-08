@@ -7,7 +7,7 @@ import SimpleLightbox from 'simplelightbox';
 
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-console.log(simplelightbox)
+// console.log(simplelightbox)
 
 const imgEl= galleryItems
   .map(({preview, original, description}) => 
