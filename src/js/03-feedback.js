@@ -30,65 +30,114 @@ import throttle from 'lodash.throttle';
 
 const refs = {
     form: document.querySelector('.feedback-form'),
-    textEmail: document.querySelector('.feedback-form')[0],
-    formMessage: document.querySelector('.feedback-form')[1],
+    email: document.querySelector('.feedback-form')[0],
+    message: document.querySelector('.feedback-form')[1],
 }
 // console.log(refs);
 
 
+// const KEY_EMAIL_INPUT = 'feedbeckEmailInput';
+// const KEY_MESSAGE_INPUT = 'feedbeckMessageInput';
+const FORM_FEEDBACK = 'FORM_FEEDBACK';
+const formData = {};
+
+
 refs.form.addEventListener('submit', onFormSubmit)
-// refs.textEmail.addEventListener('input', onEmailInput)
-refs.textEmail.addEventListener('input', throttle(onEmailInput, 500))
-// refs.textEmail.addEventListener('input', throttle(() => {onEmailInput}, 500));
-refs.formMessage.addEventListener('input', throttle(onMessageInput, 500));
+
+
+
+// refs.textEmail.addEventListener('input', throttle(onEmailInput, 500))
+// refs.formMessage.addEventListener('input', throttle(onMessageInput, 500));
+
+
+
+refs.form.addEventListener('input', throttle(onFormInput, 500))
+
+function onFormInput(event) {
+  // console.log(e.target.value); //ssss@sss.ssssss
+  // console.log(e.target.name); // email
+
+  formData[event.target.name] = event.target.value
+  // console.log(formData); // email
+
+  localStorage.setItem(FORM_FEEDBACK, JSON.stringify(formData));
+}
+
 
 function onFormSubmit(event) {
     event.preventDefault();
 
+    const formInputs = JSON.parse(localStorage.getItem(FORM_FEEDBACK));
+    let user = {'email': formInputs.email, 'message': formInputs.message}
+
+    console.log(user);
     console.log('отправка форми');
     event.currentTarget.reset();
-    localStorage.removeItem('feedbeckEmailInput');
-    localStorage.removeItem('feedbeckMessageInput');
+    localStorage.removeItem(FORM_FEEDBACK);
+            
 }
 
-function onEmailInput(event) {
-    const mesEmai = event.currentTarget.value;
-    localStorage.setItem('feedbeckEmailInput', mesEmai);
-}
-
-
-function onMessageInput(event) {
-    const mes = event.currentTarget.value;
-    localStorage.setItem('feedbeckMessageInput', mes);
-}
-
-
-function savedMassage() {
-  const feedbeckMessageInput = localStorage.getItem('feedbeckMessageInput')
-  if (feedbeckMessageInput) {
-    // console.log(feedbeckMessageInput);
-    refs.formMessage.value = feedbeckMessageInput
+const formInputs = JSON.parse(localStorage.getItem(FORM_FEEDBACK));
+// console.log(formInputs);
+// console.log(formInputs.email);
+if (formInputs) {
+  if (formInputs.email) {
+    // console.log(formInputs.email);
+    refs.email.value = formInputs.email;
   }
-
-  const feedbeckEmailInput = localStorage.getItem('feedbeckEmailInput')
-  if (feedbeckEmailInput) {
-    console.log(feedbeckEmailInput);
-    refs.textEmail.value = feedbeckEmailInput; 
+  if (formInputs.message) {
+    refs.message.value = formInputs.message;
   }
 }
-savedMassage()
 
 
 
 
 
+// // 9999999999999999999999999999999999999999999999999999
+// // 9999999999999999999999999999999999999999999999999999
+
+// function onFormSubmit(event) {
+//   event.preventDefault();
+
+//   let user = {'Emai': localStorage.getItem(KEY_EMAIL_INPUT), 'Message': localStorage.getItem(KEY_MESSAGE_INPUT)}
+//   console.log(user);
+//   console.log('отправка форми');
+//   event.currentTarget.reset();
+//   localStorage.removeItem(KEY_EMAIL_INPUT);
+//   localStorage.removeItem(KEY_MESSAGE_INPUT);
+  
+// }
+
+// function onEmailInput(event) {
+//   const mesEmai = event.target.value;
+//   localStorage.setItem(KEY_EMAIL_INPUT, mesEmai);
+// }
 
 
+// function onMessageInput(event) {
+// // const ssss = event.target.value
+// // console.log(ssss);
+
+//   const mes = event.target.value;
+//   localStorage.setItem(KEY_MESSAGE_INPUT, mes);
+// }
 
 
+// function savedMassage() {
+// const feedbeckMessageInput = localStorage.getItem(KEY_MESSAGE_INPUT)
+// if (feedbeckMessageInput) {
+//   // console.log(feedbeckMessageInput);
+//   refs.formMessage.value = feedbeckMessageInput
+// }
 
-
-
+// const feedbeckEmailInput = localStorage.getItem(KEY_EMAIL_INPUT)
+// if (feedbeckEmailInput) {
+//   // console.log(feedbeckEmailInput);
+//   refs.textEmail.value = feedbeckEmailInput; 
+// }
+// }
+// savedMassage()
 
 
 
